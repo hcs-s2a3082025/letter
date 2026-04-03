@@ -15,31 +15,83 @@ body {
   font-family: sans-serif;
 }
 
-/* ロック画面 */
+/* ===== ロック画面 ===== */
 .lock-screen {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #eaf3f9;
+  inset: 0;
+  backdrop-filter: blur(10px);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 100;
 }
 
-.lock-screen input {
+/* カード */
+.lock-box {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 40px;
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: 0.3s;
+}
+
+/* タイトル */
+.lock-box h2 {
+  margin-bottom: 15px;
+}
+
+/* 入力 */
+.lock-box input {
+  width: 200px;
   padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
   font-size: 16px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+/* フォーカス */
+.lock-box input:focus {
+  box-shadow: 0 0 10px rgba(100,150,255,0.6);
+}
+
+/* ボタン */
+.lock-box button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #6aa8ff;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.lock-box button:hover {
+  background: #4f8ee6;
+}
+
+/* エラー */
+.error {
+  color: red;
   margin-top: 10px;
 }
 
-.lock-screen button {
-  margin-top: 10px;
-  padding: 8px 16px;
-  cursor: pointer;
+/* 揺れる */
+.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
 }
 
 /* 本体（最初は隠す） */
