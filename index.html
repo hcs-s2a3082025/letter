@@ -16,195 +16,174 @@ body {
 }
 
 /* ===== ロック画面 ===== */
-.lock-screen {
-  position: fixed;
-  inset: 0;
-  backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
+.lock-screen{
+  position:fixed;
+  inset:0;
+  backdrop-filter:blur(10px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:100;
 }
 
-/* カード */
-.lock-box {
-  background: rgba(255, 255, 255, 0.25);
-  padding: 40px;
-  border-radius: 16px;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  text-align: center;
-  transition: 0.3s;
+.lock-box{
+  background:rgba(255,255,255,0.25);
+  padding:40px;
+  border-radius:16px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.1);
+  text-align:center;
 }
 
-/* タイトル */
-.lock-box h2 {
-  margin-bottom: 15px;
+.lock-box input{
+  width:200px;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  text-align:center;
 }
 
-/* 入力 */
-.lock-box input {
-  width: 200px;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  font-size: 16px;
-  text-align: center;
-  transition: 0.3s;
+.lock-box button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  background:#6aa8ff;
+  color:white;
+  cursor:pointer;
 }
 
-/* フォーカス */
-.lock-box input:focus {
-  box-shadow: 0 0 10px rgba(100,150,255,0.6);
+.error{color:red;margin-top:10px;}
+
+.shake{animation:shake .4s;}
+@keyframes shake{
+0%{transform:translateX(0);}
+25%{transform:translateX(-5px);}
+50%{transform:translateX(5px);}
+75%{transform:translateX(-5px);}
+100%{transform:translateX(0);}
 }
 
-/* ボタン */
-.lock-box button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  background: #6aa8ff;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
+.main{display:none;}
+
+/* ===== 封筒 ===== */
+
+.container{
+  position:relative;
+  width:340px;
+  height:220px;
 }
 
-.lock-box button:hover {
-  background: #4f8ee6;
+.envelope{
+  position:absolute;
+  width:100%;
+  height:100%;
 }
 
-/* エラー */
-.error {
-  color: red;
-  margin-top: 10px;
+.back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#cde8f6;
+  border-radius:8px;
+  z-index:1;
 }
 
-/* 揺れる */
-.shake {
-  animation: shake 0.4s;
+.front{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#cde8f6;
+  border-radius:8px;
+  z-index:3;
+  clip-path:polygon(0 0,100% 0,100% 100%,0 100%,0 0,50% 50%,100% 0);
 }
 
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
+.flap{
+  position:absolute;
+  top:0;
+  width:100%;
+  height:110px;
+  background:#b6dff2;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top center;
+  transition:transform .8s ease;
+  z-index:4;
 }
 
-/* 本体（最初は隠す） */
-.main {
-  display: none;
+/* ===== 修正版 手紙 ===== */
+
+.letter{
+  position:absolute;
+  top:40px;
+  left:10%;
+  width:80%;
+  height:160px;           /* ←重要 */
+  background:white;
+  border-radius:6px;
+  padding:15px;
+  box-sizing:border-box;
+  z-index:2;
+  box-shadow:0 10px 20px rgba(0,0,0,0.15);
+
+  overflow-y:auto;        /* ←あふれ防止 */
+  line-height:1.6;
 }
 
-/* ↓ ここからは今までのアニメーション（省略なし） */
-
-.container {
-  position: relative;
-  width: 340px;
-  height: 220px;
+/* スクロールバー可愛く */
+.letter::-webkit-scrollbar{
+  width:6px;
 }
 
-.envelope {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+.letter::-webkit-scrollbar-thumb{
+  background:#cde8f6;
+  border-radius:10px;
 }
 
-.back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #cde8f6;
-  border-radius: 8px;
-  z-index: 1;
+.open .flap{
+  transform:rotateX(180deg);
 }
 
-.front {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #cde8f6;
-  border-radius: 8px;
-  z-index: 3;
-  clip-path: polygon(0 0,100% 0,100% 100%,0 100%,0 0,50% 50%,100% 0);
+.slide-out{
+  animation:slideDown 2.4s forwards;
 }
 
-.flap {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 110px;
-  background: #b6dff2;
-  clip-path: polygon(0 0,100% 0,50% 100%);
-  transform-origin: top center;
-  transition: transform 0.8s ease;
-  z-index: 4;
-}
-
-.letter {
-  position: absolute;
-  top: 40px;
-  left: 10%;
-  width: 80%;
-  height: 80%;
-  background: white;
-  border-radius: 6px;
-  padding: 15px;
-  box-sizing: border-box;
-  z-index: 2;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-  transition: transform 0.6s ease;
-}
-
-.open .flap {
-  transform: rotateX(180deg);
-}
-
-.slide-out {
-  animation: slideDown 2.4s forwards;
-}
-
-@keyframes slideDown {
-  to {
-    transform: translateY(260px);
-    opacity: 0;
+@keyframes slideDown{
+  to{
+    transform:translateY(260px);
+    opacity:0;
   }
 }
 
-.open .letter {
-  transform: translateY(-15px);
+.open .letter{
+  transform:translateY(-15px);
 }
 </style>
 </head>
 
 <body>
 
-<!-- ロック画面 -->
 <div class="lock-screen" id="lock">
-  <div class="lock-box" id="box">
-    <h2>🔐 あいことば</h2>
-    <input type="password" id="password" placeholder="入力してください">
-    <br>
-    <button onclick="unlock()">開く</button>
-    <div class="error" id="error"></div>
-  </div>
+<div class="lock-box" id="box">
+<h2>🔐 あいことば</h2>
+<input type="password" id="password">
+<br>
+<button onclick="unlock()">開く</button>
+<div class="error" id="error"></div>
+</div>
 </div>
 
-<!-- 本体 -->
 <div class="main" id="main">
-  <div class="container" id="container">
+<div class="container" id="container">
 
-    <div class="envelope" id="envelope">
-      <div class="back"></div>
-      <div class="front"></div>
-      <div class="flap"></div>
-    </div>
+<div class="envelope" id="envelope">
+<div class="back"></div>
+<div class="front"></div>
+<div class="flap"></div>
+</div>
 
-    <div class="letter">
-      <p>あいかへ</p>
+<div class="letter">
+<p>あいかへ</p>
 <p>東京に行ってもずっーと大好き！ずーっと友達だよ！</p>
 <p>あいかと出会えて、本当に良かったなって思ってる。</p>
 <p>一緒に笑ったことも、どうでもいい話で盛り上がった時間も、全部大切な思い出だよ。</p>
@@ -216,52 +195,46 @@ body {
 <p>いつでも味方だし、北海道から応援してるよ。</p>
 <p>いっぱい会いに行くからねー！</p>
 <p>りなより</p>
-    </div>
+</div>
 
-  </div>
+</div>
 </div>
 
 <script>
-const correctPassword = "inu"; // ←ここ変更
+const correctPassword="mami-orogon";
 
-function unlock() {
-  const input = document.getElementById("password");
-  const error = document.getElementById("error");
-  const box = document.getElementById("box");
+function unlock(){
+const input=document.getElementById("password");
+const error=document.getElementById("error");
+const box=document.getElementById("box");
 
-  if (input.value === correctPassword) {
-    document.getElementById("lock").style.display = "none";
-    document.getElementById("main").style.display = "block";
-  } else {
-    error.textContent = "あいことばが違います";
-    box.classList.add("shake");
-
-    setTimeout(() => {
-      box.classList.remove("shake");
-    }, 400);
-  }
+if(input.value===correctPassword){
+document.getElementById("lock").style.display="none";
+document.getElementById("main").style.display="block";
+}else{
+error.textContent="あいことばが違います";
+box.classList.add("shake");
+setTimeout(()=>box.classList.remove("shake"),400);
+}
 }
 
-/* Enterキー対応 */
-document.getElementById("password").addEventListener("keydown", e => {
-  if (e.key === "Enter") unlock();
+document.getElementById("password").addEventListener("keydown",e=>{
+if(e.key==="Enter")unlock();
 });
 
-// アニメーション
-const container = document.getElementById("container");
-const envelope = document.getElementById("envelope");
+const container=document.getElementById("container");
+const envelope=document.getElementById("envelope");
 
-let opened = false;
+let opened=false;
 
-container.addEventListener("click", () => {
-  if (opened) return;
-  opened = true;
+container.addEventListener("click",()=>{
+if(opened)return;
+opened=true;
+container.classList.add("open");
 
-  container.classList.add("open");
-
-  setTimeout(() => {
-    envelope.classList.add("slide-out");
-  }, 500);
+setTimeout(()=>{
+envelope.classList.add("slide-out");
+},500);
 });
 </script>
 
