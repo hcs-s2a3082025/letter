@@ -182,12 +182,15 @@ body {
 
 <body>
 
-<!-- 🔐 ロック画面 -->
+<!-- ロック画面 -->
 <div class="lock-screen" id="lock">
-  <h2>パスワードを入力</h2>
-  <input type="password" id="password">
-  <button onclick="unlock()">開く</button>
-  <p id="error" style="color:red;"></p>
+  <div class="lock-box" id="box">
+    <h2>🔐 パスワード</h2>
+    <input type="password" id="password" placeholder="入力してください">
+    <br>
+    <button onclick="unlock()">開く</button>
+    <div class="error" id="error"></div>
+  </div>
 </div>
 
 <!-- 本体 -->
