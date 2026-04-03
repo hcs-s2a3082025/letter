@@ -216,16 +216,27 @@ body {
 const correctPassword = "mami-orogon"; // ←ここ変更
 
 function unlock() {
-  const input = document.getElementById("password").value;
+  const input = document.getElementById("password");
   const error = document.getElementById("error");
+  const box = document.getElementById("box");
 
-  if (input === correctPassword) {
+  if (input.value === correctPassword) {
     document.getElementById("lock").style.display = "none";
     document.getElementById("main").style.display = "block";
   } else {
     error.textContent = "パスワードが違います";
+    box.classList.add("shake");
+
+    setTimeout(() => {
+      box.classList.remove("shake");
+    }, 400);
   }
 }
+
+/* Enterキー対応 */
+document.getElementById("password").addEventListener("keydown", e => {
+  if (e.key === "Enter") unlock();
+});
 
 // アニメーション
 const container = document.getElementById("container");
