@@ -5,21 +5,27 @@
 <title>手紙</title>
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #eaf3f9;
-  font-family: sans-serif;
+
+/* ===== 全体 ===== */
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#eaf3f9;
+  font-family:sans-serif;
+  overflow:hidden;
 }
 
-/* ===== ロック画面 ===== */
+/* =========================
+   🔐 ロック画面
+========================= */
+
 .lock-screen{
   position:fixed;
   inset:0;
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(12px);
   display:flex;
   justify-content:center;
   align-items:center;
@@ -27,27 +33,32 @@ body {
 }
 
 .lock-box{
-  background:rgba(255,255,255,0.25);
-  padding:40px;
-  border-radius:16px;
-  backdrop-filter:blur(20px);
-  box-shadow:0 20px 40px rgba(0,0,0,0.1);
+  background:rgba(255,255,255,.35);
+  padding:50px;
+  border-radius:20px;
   text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
+}
+
+.lock-box h2{
+  font-size:28px;
 }
 
 .lock-box input{
-  width:200px;
-  padding:10px;
-  border-radius:8px;
+  width:260px;
+  padding:14px;
+  font-size:18px;
   border:none;
+  border-radius:10px;
   text-align:center;
 }
 
 .lock-box button{
-  margin-top:15px;
-  padding:10px 20px;
+  margin-top:20px;
+  padding:14px 30px;
+  font-size:18px;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   background:#6aa8ff;
   color:white;
   cursor:pointer;
@@ -58,22 +69,26 @@ body {
 .shake{animation:shake .4s;}
 @keyframes shake{
 0%{transform:translateX(0);}
-25%{transform:translateX(-5px);}
-50%{transform:translateX(5px);}
-75%{transform:translateX(-5px);}
+25%{transform:translateX(-6px);}
+50%{transform:translateX(6px);}
+75%{transform:translateX(-6px);}
 100%{transform:translateX(0);}
 }
 
 .main{display:none;}
 
-/* ===== 封筒 ===== */
+/* =========================
+   💌 封筒
+========================= */
 
 .container{
   position:relative;
-  width:340px;
-  height:220px;
+  width:min(80vw,650px);
+  height:min(55vw,420px);
+  cursor:pointer;
 }
 
+/* 封筒本体 */
 .envelope{
   position:absolute;
   width:100%;
@@ -85,7 +100,7 @@ body {
   width:100%;
   height:100%;
   background:#cde8f6;
-  border-radius:8px;
+  border-radius:14px;
   z-index:1;
 }
 
@@ -94,7 +109,7 @@ body {
   width:100%;
   height:100%;
   background:#cde8f6;
-  border-radius:8px;
+  border-radius:14px;
   z-index:3;
   clip-path:polygon(0 0,100% 0,100% 100%,0 100%,0 0,50% 50%,100% 0);
 }
@@ -103,66 +118,70 @@ body {
   position:absolute;
   top:0;
   width:100%;
-  height:110px;
+  height:50%;
   background:#b6dff2;
   clip-path:polygon(0 0,100% 0,50% 100%);
-  transform-origin:top center;
-  transition:transform .8s ease;
+  transform-origin:top;
+  transition:.9s;
   z-index:4;
 }
 
-/* ===== 修正版 手紙 ===== */
+/* =========================
+   📜 手紙
+========================= */
 
 .letter{
   position:absolute;
-  top:40px;
-  left:10%;
-  width:80%;
-  height:160px;           /* ←重要 */
+  top:12%;
+  left:7%;
+  width:86%;
+  height:75%;
   background:white;
-  border-radius:6px;
-  padding:15px;
+  border-radius:10px;
+  padding:28px;
   box-sizing:border-box;
   z-index:2;
-  box-shadow:0 10px 20px rgba(0,0,0,0.15);
+  box-shadow:0 15px 30px rgba(0,0,0,.2);
 
-  overflow-y:auto;        /* ←あふれ防止 */
-  line-height:1.6;
+  overflow-y:auto;
+  line-height:1.8;
+  font-size:clamp(16px,2vw,22px);
 }
 
-/* スクロールバー可愛く */
-.letter::-webkit-scrollbar{
-  width:6px;
-}
-
+/* スクロールバー */
+.letter::-webkit-scrollbar{width:8px;}
 .letter::-webkit-scrollbar-thumb{
   background:#cde8f6;
   border-radius:10px;
 }
 
+/* 開く */
 .open .flap{
   transform:rotateX(180deg);
 }
 
+.open .letter{
+  transform:translateY(-25px);
+}
+
+/* 封筒消える */
 .slide-out{
-  animation:slideDown 2.4s forwards;
+  animation:slideDown 2.2s forwards;
 }
 
 @keyframes slideDown{
   to{
-    transform:translateY(260px);
+    transform:translateY(600px);
     opacity:0;
   }
 }
 
-.open .letter{
-  transform:translateY(-15px);
-}
 </style>
 </head>
 
 <body>
 
+<!-- 🔐 ロック -->
 <div class="lock-screen" id="lock">
 <div class="lock-box" id="box">
 <h2>🔐 あいことば</h2>
@@ -173,7 +192,9 @@ body {
 </div>
 </div>
 
+<!-- 💌 メイン -->
 <div class="main" id="main">
+
 <div class="container" id="container">
 
 <div class="envelope" id="envelope">
@@ -184,16 +205,27 @@ body {
 
 <div class="letter">
 <p>あいかへ</p>
+
 <p>東京に行ってもずっーと大好き！ずーっと友達だよ！</p>
+
 <p>あいかと出会えて、本当に良かったなって思ってる。</p>
+
 <p>一緒に笑ったことも、どうでもいい話で盛り上がった時間も、全部大切な思い出だよ。</p>
+
 <p>８月行くの超楽しみ！！</p>
+
 <p>東京で頑張ってるあいかに会えるの想像するだけでワクワクしてる！</p>
+
 <p>あいかとなかなか会えなくなっちゃうのはやっぱり悲しいけど、</p>
+
 <p>距離が離れても今までみたいにいっぱい話したいし、変わらず仲良くしてね。</p>
+
 <p>新しい場所で大変なこともあると思うけど、あいからしく楽しんでね！</p>
+
 <p>いつでも味方だし、北海道から応援してるよ。</p>
+
 <p>いっぱい会いに行くからねー！</p>
+
 <p>りなより</p>
 </div>
 
@@ -201,6 +233,7 @@ body {
 </div>
 
 <script>
+
 const correctPassword="mami-orogon";
 
 function unlock(){
@@ -218,7 +251,8 @@ setTimeout(()=>box.classList.remove("shake"),400);
 }
 }
 
-document.getElementById("password").addEventListener("keydown",e=>{
+document.getElementById("password")
+.addEventListener("keydown",e=>{
 if(e.key==="Enter")unlock();
 });
 
@@ -230,12 +264,14 @@ let opened=false;
 container.addEventListener("click",()=>{
 if(opened)return;
 opened=true;
+
 container.classList.add("open");
 
 setTimeout(()=>{
 envelope.classList.add("slide-out");
 },500);
 });
+
 </script>
 
 </body>
